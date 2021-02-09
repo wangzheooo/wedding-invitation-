@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.marry.mapper.TUserGoldInfoMapper">
+    
+    <resultMap type="TUserGoldInfo" id="TUserGoldInfoResult">
+        <result property="id"    column="id"    />
+        <result property="giftName"    column="gift_name"    />
+        <result property="giftUrl"    column="gift_url"    />
+        <result property="giftGold"    column="gift_gold"    />
+    </resultMap>
+
+    <sql id="selectTUserGoldInfoVo">
+        select id, gift_name, gift_url, gift_gold from t_user_gold_info
+    </sql>
+
+    <select id="selectTUserGoldInfoList" parameterType="TUserGoldInfo" resultMap="TUserGoldInfoResult">
+        <include refid="selectTUserGoldInfoVo"/>
+        <where>  
+            <if test="giftName != null  and giftName != ''"> and gift_name like concat('%', #{giftName}, '%')</if>
+            <if test="giftUrl != null  and giftUrl != ''"> and gift_url = #{giftUrl}</if>
+            <if test="giftGold != null "> and gift_gold = #{giftGold}</if>
+        </where>
+        order by gift_gold
+    </select>
+    
+    <select id="selectTUserGoldInfoById" parameterType="Long" resultMap="TUserGoldInfoResult">
+        <include refid="selectTUserGoldInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTUserGoldInfo" parameterType="TUserGoldInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user_gold_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="giftName != null">gift_name,</if>
+            <if test="giftUrl != null">gift_url,</if>
+            <if test="giftGold != null">gift_gold,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="giftName != null">#{giftName},</if>
+            <if test="giftUrl != null">#{giftUrl},</if>
+            <if test="giftGold != null">#{giftGold},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTUserGoldInfo" parameterType="TUserGoldInfo">
+        update t_user_gold_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="giftName != null">gift_name = #{giftName},</if>
+            <if test="giftUrl != null">gift_url = #{giftUrl},</if>
+            <if test="giftGold != null">gift_gold = #{giftGold},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTUserGoldInfoById" parameterType="Long">
+        delete from t_user_gold_info where id = #{id}
+    </delete>
+
+    <delete id="deleteTUserGoldInfoByIds" parameterType="String">
+        delete from t_user_gold_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

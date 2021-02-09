@@ -1,0 +1,98 @@
+/* pages/map/index.wxss */
+
+.container {
+  min-height: 100vh;
+  background-size: cover;
+}
+
+.t1 {
+  width: 626rpx;
+  height: 180rpx;
+  margin: 0 auto;
+  margin-top: 1%;
+  display: block;
+}
+
+.page-section-gap {
+  /* background: red; */
+  width: 100%;
+  height: 50%;
+  margin-top: 5%;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+}
+
+#map {
+  width: 694rpx;
+  height: 600rpx;
+  margin: 0 auto;
+  margin-bottom: 30rpx;
+  margin-top: 20rpx;
+  border: 3rpx solid rgba(0, 0, 0, .3)
+}
+
+.nav {
+  width: 120rpx;
+  height: 120rpx;
+  position:absolute;
+  bottom: 45%;
+  right: 80rpx;
+  z-index: 99;
+}
+
+.tel {
+  padding-top: 5rpx;
+  width: 500rpx;
+  margin: 0 auto;
+  min-height: 0;
+  overflow: hidden;
+  text-align: center;
+  font-size: 24rpx;
+  color: #684c4b;
+  line-height: 50rpx;
+  z-index: 99999;
+  padding-bottom: 5rpx;
+}
+
+.tel_he {
+  width: 200rpx;
+  float: left;
+}
+
+.tel_she {
+  width: 200rpx;
+  float: right;
+}
+
+.call {
+  width: 80rpx;
+  height: 80rpx;
+  display: block;
+  margin: 0 auto;
+}
+
+.call image {
+  width: 80rpx;
+  height: 80rpx;
+  margin-bottom: 10rpx;
+}
+
+.copyright {
+  text-align: center;
+  font-size: 20rpx;
+  line-height: 25rpx;
+  padding-bottom: 20rpx;
+  color: #684c4b;
+}
+
+.bless_img {
+  /* padding-top: 150rpx; */
+  width: 300rpx;
+  height: 225rpx;
+  margin: 0 auto;
+}
+
+.bless_img image {
+  width: 300rpx;
+  height: 225rpx;
+}

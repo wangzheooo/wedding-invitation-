@@ -1,0 +1,19 @@
+/* pages/leaderboard/leaderboard.wxss */
+
+.page_view {
+  width: 100%;
+  height: 100%;
+  /* height: 1130rpx; */
+  /* background-color: red; */
+  overflow: hidden;
+  display: block;
+}
+
+.tab {
+  width: 100%;
+  /* height: 100%; */
+  height: 1100rpx;
+  /* background-color: blue; */
+  margin-top: 100rpx;
+  /* margin-bottom: 100rpx; */
+}

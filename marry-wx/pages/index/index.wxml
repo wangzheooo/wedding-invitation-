@@ -1,0 +1,23 @@
+<!--pages/invitation/index.wxml-->
+<view class="container">
+	<image src='/image/inv.png' class='inv'></image>
+	<image src='{{image8}}' class='cover' mode='aspectFill' style="width: {{imagewidth}}px; height: {{imageheight}}px;" bindload="imageLoad"></image>
+	<view class='datetime' animation="{{animationData}}">
+		<view class='box'>
+			<view class="name">
+				<view class="fl">{{bridegroomname}} </view>
+				<!-- <canvas type="2d" id="canvas" style="background:blue;opacity: 0.5;position: fixed;z-index:99;width: 100%; height: 100%;top:0%;left:0%;"></canvas> -->
+				<image class="image_heart {{isDoudong?'doudong':''}} {{extraClasses}}" src='../../image/heart.png' bindtouchend="handleTouchEnd" bindlongpress="handleLongPress" bindtouchstart="touchS" bindtouchmove="touchM" style="left:0;bottom:0;margin-bottom:{{margin_bottom}}rpx;margin-left: {{margin_left}}rpx;"></image>
+				<view class="fr"> {{bridename}}</view>
+			</view>
+			<view class="date">
+				<view class="text2">谨定于 {{date_yang}}</view>
+				<view class="text2">农历{{date_nong}} 举办婚礼</view>
+				<view class='free-horizontalScroll'>
+					<view class="free-verticalScroll-item text2">地址：{{marry_addr}}</view>
+				</view>
+				<view class="text1">诚挚邀请您参加我们的婚礼</view>
+			</view>
+		</view>
+	</view>
+</view>

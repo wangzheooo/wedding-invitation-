@@ -1,0 +1,40 @@
+<!-- pages/map/index.wxml -->
+<wux-dialog id="wux-dialog" />
+<wux-toast id="wux-toast" />
+
+<view class="container">
+	<image src='/image/t1.png' class='t1'></image>
+
+	<!-- 地图 -->
+	<view class="page-section-gap">
+		<map id="myMap" style="width: 100%; height: 300px;" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" show-location>
+		</map>
+		<image class='nav' src='/image/nav.png' bindtap="markertap"></image>
+	</view>
+
+	<view class="tel">
+		<view class="tel_he">
+			<view class="call" bindtap="callhe">
+				<image src="/image/he.png" width="100%" />
+			</view>
+			呼叫新郎
+		</view>
+		<view class="tel_she">
+			<view class="call" bindtap="callshe">
+				<image src="/image/she.png" width="100%" />
+			</view>
+			呼叫新娘
+		</view>
+	</view>
+	<view class="button-sp-area bless_img">
+		<wux-popover placement="top" visible="{{ visible }}" controlled content="{{message_text}}" bind:change="onChange" bindlongtap="longtap">
+			<!-- <button size="mini">topLeft</button> -->
+			<image src="/image/heart-animation.gif" />
+		</wux-popover>
+	</view>
+	<!-- <view class="bless_img">
+    <image src="/image/heart-animation.gif" bindtap='imgOnClick' />
+  </view> -->
+	<!-- <wux-white-space body-style="height: 200px" />
+  <wux-cell title="调戏客服" is-link open-type="contact" bind:contact="onContact"></wux-cell> -->
+</view>

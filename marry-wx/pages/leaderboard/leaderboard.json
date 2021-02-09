@@ -1,0 +1,12 @@
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "wux-tabs": "../../dist/tabs/index",
+    "wux-tab": "../../dist/tab/index",
+    "wux-badge": "../../dist/badge/index",
+    "wux-cell-group": "../../dist/cell-group/index",
+    "wux-cell": "../../dist/cell/index",
+    "wux-virtual-list": "../../dist/virtual-list/index",
+    "wux-virtual-item": "../../dist/virtual-item/index"
+  }
+}

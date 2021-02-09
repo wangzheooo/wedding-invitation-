@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--360浏览器优先以webkit内核解析-->
+    <title>若依介绍</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+    <link href="../static/css/main/animate.min.css" th:href="@{/css/main/animate.min.css}" rel="stylesheet"/>
+    <link href="../static/css/main/style.min862f.css" th:href="@{/css/main/style.min862f.css}" rel="stylesheet"/>
+</head>
+
+<body class="gray-bg">
+<div class="row  border-bottom white-bg dashboard-header">
+    <div class="col-sm-12">
+        <blockquote class="text-warning" style="font-size:14px">
+            <h4 class="text-success">部署步骤:</h4>
+            <h4 class="text-danger">一.部署数据库</h4>
+            1.此版本安装的mysql5.7.22(用mysql5.2创建表结构会报错,这个情况下需要改sql或者数据库表,不如用5.7以上版本)<br>
+            2.数据库字符集是utf8mb4,排序规则是general_ci(utf8mn4是为了存表情)<br>
+            3.导入.sql文件<br>
+            <h4 class="text-danger">二:部署后台系统</h4>
+            1.用idea打开项目<br>
+            2.修改数据库配置(在application-druid.yml中)<br>
+            3.修改oss配置(在applicaton.yml最下面)<br>
+            4.修改ssl证书配置<br>
+            1)把pfx文件放到配置文件下<br>
+            2)在applicaton.yml中的ssl属性,修改配置<br>
+            5.运行后看看https://域名,能不能访问<br>
+            <h4 class="text-danger">三.部署小程序</h4>
+            1.小程序只修改api/api.js里的host变量<br>
+        </blockquote>
+
+        <hr>
+    </div>
+    <div class="col-sm-5">
+        <h2>框架</h2>
+        <ol>
+            <li>用了若依的后台框架,配置了/wechat/**接口和小程序对接</li>
+            <li>小程序是根据pengMaster大神的邀请函改的</li>
+            <li>这个项目最近会一直更新,由于在上班,更新的比较慢</li>
+        </ol>
+        <p>
+            <b>当前版本：</b><span>v[[${version}]]</span>
+        </p>
+        <p>
+            <span class="label label-warning">&yen;免费开源</span>
+        </p>
+        <br>
+        <p>
+            <a class="btn btn-success btn-outline" href="https://gitee.com/davidzhe/wedding-invitation-"
+               target="_blank">
+                <i class="fa fa-cloud"> </i> 访问本项目
+            </a>
+            <a class="btn btn-success btn-outline" href="https://gitee.com/y_project/RuoYi" target="_blank">
+                <i class="fa fa-cloud"> </i> 访问若依项目
+            </a>
+            <a class="btn btn-success btn-outline" href="https://www.wanandroid.com/blog/show/2291" target="_blank">
+                <i class="fa fa-cloud"></i> 访问pengMaster的项目
+            </a>
+        </p>
+    </div>
+    <div class="col-sm-4">
+        <h4>未来改进的地方：</h4>
+        <ol>
+            <li>弹幕内容加入微信头像和礼物图片</li>
+            <li>相册入场动画会大改,加一些入场动画</li>
+            <li>缺一个把金币换成现金的解决方案,争取不用300元认证费</li>
+            <li>缺一个随份子解决方案,现在微信转账随份子也很常见</li>
+            <li>舞台弹幕功能,把功能做到后台系统中,按F11全屏,以后解决</li>
+            <li>小程序api接口加入验签,在shiro层实现</li>
+            <li>后台管理系统,图片加载改为异步</li>
+            <li>等等</li>
+        </ol>
+    </div>
+
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+
+        <div class="col-sm-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>目前的项目配置</h5>
+                </div>
+                <div class="ibox-content">
+                    <ol>
+                        <li>服务器:阿里云1核2G,1M带宽,windows server 2008 R2</li>
+                        <li>数据库:腾讯云TDSQL-C数据库,兼容mysql5.7,1核1G</li>
+                        <li>存储:阿里云oss</li>
+                        <li>cdn加速:百度云加速</li>
+                    </ol>
+                </div>
+
+                <div class="ibox-title">
+                    <h5>项目配置优化</h5>
+                </div>
+                <div class="ibox-content">
+                    <ol>
+                        <li>linux系统可以增加虚拟内存,把数据库装在服务器上</li>
+                        <li>后台有关静态图片,建议都整到oss里或者放到QQ空间,然后用链接引用,这样图片加载速度会变快,七牛云的存储比阿里云的oss便宜,可以尝试尝试</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>更新日志</h5>
+                </div>
+                <div class="ibox-content no-padding">
+                    <div class="panel-body">
+                        <div class="panel-group" id="version">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#version" href="#v101">v1.0.1</a><code
+                                            class="pull-right">2020.12.30</code>
+                                    </h5>
+                                </div>
+                                <div id="v101" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        <ol>
+                                            <li>打电话功能,如果不想打了点击取消,会有弹框提示,砍掉这个弹框提示,更人性化</li>
+                                            <li>后台管理系统访客头像不显示问题优化</li>
+                                            <li>小程序对获取不到openid情况进行了二次获取,同理还有获取不到小程序图片,信息等都优化了</li>
+                                            <li>小程序留言输入框和输入法距离位置优化</li>
+                                            <li>改进了小程序概率性获取不带openId的情况,试用一段时间观察情况(主要原因是云服务器的性能,和手机端的网速问题,甩锅)</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#version" href="#v100">v1.0.0</a><code
+                                            class="pull-right">2020.12.29</code>
+                                    </h5>
+                                </div>
+                                <div id="v100" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ol>
+                                            <li>用户登录保存用户信息</li>
+                                            <li>首页的心,按住不动可以弹射</li>
+                                            <li>留言,并加入审核接口,审核接口有点弱</li>
+                                            <li>祝福</li>
+                                            <li>礼物</li>
+                                            <li>金币</li>
+                                            <li>排行榜</li>
+                                            <li>弹幕</li>
+                                            <li>导航</li>
+                                            <li>打电话</li>
+                                            <li>后台控制音乐/留言/礼物/弹幕的开关</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>小程序</h5>
+                </div>
+                <div class="ibox-content">
+                    <!--<div class="alert alert-warning">
+                        请作者喝杯咖啡（点击图片放大）
+                    </div>-->
+                    <p id="pay-qrcode" style="width: 50%">
+                        <a href="javascript:;">
+                            <img th:src="@{/img/gh_3669ad9704ef_258.jpg}" width="100%">
+                        </a>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
+<script type="text/javascript">
+    $('#pay-qrcode').click(function () {
+        var html = $(this).html();
+        parent.layer.open({
+            title: false,
+            type: 1,
+            closeBtn: false,
+            shadeClose: true,
+            area: ['200px', '200px'],
+            content: html
+        });
+    });
+</script>
+</body>
+</html>

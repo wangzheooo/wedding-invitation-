@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('小程序设置列表')"/>
+    <th:block th:include="include :: select2-css"/>
+</head>
+<body class="gray-bg">
+<div class="main-content">
+    <form class="form-horizontal" id="form-user-edit" th:object="${tMarryUser}">
+        <input name="id" type="hidden" th:field="*{id}"/>
+        <h4 class="form-header h4">新郎新娘信息</h4>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">新郎名字：</label>
+                    <div class="col-sm-8">
+                        <input name="bridegroomName" placeholder="请输入新郎的名字" class="form-control" type="text"
+                               maxlength="30"
+                               autocomplete="off" th:field="*{bridegroomName}"
+                               required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">新娘名字：</label>
+                    <div class="col-sm-8">
+                        <input name="brideName" placeholder="请输入新娘的名字" class="form-control" type="text" maxlength="30"
+                               autocomplete="off" th:field="*{brideName}"
+                               required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">新郎手机号：</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input name="bridegroomTel" placeholder="请输入新郎的手机号" class="form-control" type="text"
+                                   maxlength="11" autocomplete="off" th:field="*{bridegroomTel}" required>
+                            <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">新娘手机号：</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input name="brideTel" placeholder="请输入新娘的手机号" class="form-control" type="text"
+                                   maxlength="11" autocomplete="off" th:field="*{brideTel}" required>
+                            <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <h4 class="form-header h4">时间和地点信息</h4>
+        <div class="row">
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">阳历日期：</label>
+                    <div class="col-sm-8">
+                        <input name="solarCalendar" placeholder="请输入阳历日期,例:2019年11月9日" class="form-control" type="text"
+                               maxlength="30" autocomplete="off" th:field="*{solarCalendar}"
+                               required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">农历日期：</label>
+                    <div class="col-sm-8">
+                        <input name="lunarCalendar" placeholder="请输入农历日期,例:二〇一九年十月十三号" class="form-control" type="text"
+                               maxlength="30" autocomplete="off" th:field="*{lunarCalendar}"
+                               required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">经度：</label>
+                    <div class="col-sm-8">
+                        <input name="longitude" placeholder="请输入经度,例:116.7276334763" class="form-control" type="text"
+                               maxlength="30"
+                               autocomplete="off" th:field="*{longitude}"
+                               required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">维度：</label>
+                    <div class="col-sm-8">
+                        <input name="latitude" placeholder="请输入维度,例:35.1466874517" class="form-control" type="text"
+                               maxlength="30"
+                               autocomplete="off" th:field="*{latitude}"
+                               required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">地址：</label>
+                    <div class="col-sm-8">
+                        <input name="addr" placeholder="请输入地址,例:XX省XX市XX县XX小区" class="form-control" type="text"
+                               autocomplete="off" th:field="*{addr}"
+                               required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h4 class="form-header h4">小程序信息</h4>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">小程序appid：</label>
+                    <div class="col-sm-8">
+                        <input name="appid" placeholder="请输入appid" class="form-control" type="text" maxlength="30"
+                               autocomplete="off" th:field="*{appid}"
+                               required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">小程序appsecret：</label>
+                    <div class="col-sm-8">
+                        <input name="appsecret" placeholder="请输入appsecret" class="form-control" type="text"
+                               maxlength="50" autocomplete="off" th:field="*{appsecret}"
+                               required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h4 class="form-header h4">小程序背景音乐</h4>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">背景音乐的名字：</label>
+                    <div class="col-sm-8">
+                        <input name="musicName" placeholder="请输入背景音乐的名字" class="form-control" type="text"
+                               maxlength="30" autocomplete="off" th:field="*{musicName}"
+                               required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">背景音乐的链接：</label>
+                    <div class="col-sm-8">
+                        <input name="musicUrl" placeholder="请输入背景音乐的链接" class="form-control" type="text"
+                               autocomplete="off" th:field="*{musicUrl}"
+                               required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h4 class="form-header h4">小程序功能开关</h4>
+        <div class="row">
+            <div class="col-sm-6">
+                <!--<div class="form-group">
+                    <label class="col-sm-4 control-label">祝福开关：</label>
+                    <div class="col-sm-8">
+                        <label class="toggle-switch switch-solid">
+                            <input type="checkbox" id="blessStatus" th:checked="${tMarryUser.blessStatus == '1' ?true : false}">
+                            <span></span>
+                        </label>
+                    </div>
+                </div>-->
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">评论开关：</label>
+                    <div class="col-sm-8">
+                        <label class="toggle-switch switch-solid">
+                            <input type="checkbox" id="commentStatus"
+                                   th:checked="${tMarryUser.commentStatus == '1' ? true : false}">
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">礼物开关：</label>
+                    <div class="col-sm-8">
+                        <label class="toggle-switch switch-solid">
+                            <input type="checkbox" id="goldStatus"
+                                   th:checked="${tMarryUser.goldStatus == '1' ? true : false}">
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">弹幕开关：</label>
+                    <div class="col-sm-8">
+                        <label class="toggle-switch switch-solid">
+                            <input type="checkbox" id="barrageStatus"
+                                   th:checked="${tMarryUser.barrageStatus == '1' ? true : false}">
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">音乐开关：</label>
+                    <div class="col-sm-8">
+                        <label class="toggle-switch switch-solid">
+                            <input type="checkbox" id="musicStatus"
+                                   th:checked="${tMarryUser.musicStatus == '1' ? true : false}">
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    <div style="font-weight:bold;color: red;">
+        注:<br/>
+        1.此页为主要信息<br>
+        2.评论开关主要用于小程序审核提交,提交时把评论关掉<br>
+        3.弹幕开关和音乐开关主要用于小程序开发时让世界安静<br>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-offset-5 col-sm-10">
+        <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>保 存
+        </button>&nbsp;
+    </div>
+</div>
+
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: select2-js"/>
+<script th:inline="javascript">
+    var prefix = ctx + "marry/marrySetting";
+
+    // var tMarryUser = [[${tMarryUser}]];
+    // log.info(tMarryUser);
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            var data = $("#form-user-edit").serializeArray();
+            var blessStatus = $("input[id='blessStatus']").is(':checked') == true ? 1 : 0;
+            var commentStatus = $("input[id='commentStatus']").is(':checked') == true ? 1 : 0;
+            var goldStatus = $("input[id='goldStatus']").is(':checked') == true ? 1 : 0;
+            var barrageStatus = $("input[id='barrageStatus']").is(':checked') == true ? 1 : 0;
+            var musicStatus = $("input[id='musicStatus']").is(':checked') == true ? 1 : 0;
+            data.push({"name": "blessStatus", "value": blessStatus});
+            data.push({"name": "commentStatus", "value": commentStatus});
+            data.push({"name": "goldStatus", "value": goldStatus});
+            data.push({"name": "barrageStatus", "value": barrageStatus});
+            data.push({"name": "musicStatus", "value": musicStatus});
+            // log.info(data);
+            $.operate.saveModal(prefix + "/edit", data);
+        }
+    }
+</script>
+</body>
+</html>

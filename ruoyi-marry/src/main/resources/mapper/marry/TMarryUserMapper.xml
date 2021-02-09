@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.marry.mapper.TMarryUserMapper">
+
+    <resultMap type="TMarryUser" id="TMarryUserResult">
+        <result property="id" column="id"/>
+        <result property="appid" column="appid"/>
+        <result property="appsecret" column="appsecret"/>
+        <result property="commentStatus" column="comment_status"/>
+        <result property="blessStatus" column="bless_status"/>
+        <result property="goldStatus" column="gold_status"/>
+
+        <result property="barrageStatus" column="barrage_status"/>
+        <result property="musicStatus" column="music_status"/>
+
+        <result property="bridegroomName" column="bridegroom_name"/>
+        <result property="brideName" column="bride_name"/>
+        <result property="bridegroomTel" column="bridegroom_tel"/>
+        <result property="brideTel" column="bride_tel"/>
+        <result property="solarCalendar" column="solar_calendar"/>
+        <result property="lunarCalendar" column="lunar_calendar"/>
+        <result property="longitude" column="longitude"/>
+        <result property="latitude" column="latitude"/>
+        <result property="addr" column="addr"/>
+        <result property="musicName" column="music_name"/>
+        <result property="musicUrl" column="music_url"/>
+    </resultMap>
+
+    <sql id="selectTMarryUserVo">
+        select id, appid, appsecret, comment_status, bless_status, gold_status, barrage_status, music_status, bridegroom_name, bride_name, bridegroom_tel, bride_tel, solar_calendar, lunar_calendar, longitude, latitude, addr, music_name, music_url from t_marry_user
+    </sql>
+
+    <select id="selectTMarryUserList" parameterType="TMarryUser" resultMap="TMarryUserResult">
+        <include refid="selectTMarryUserVo"/>
+        <where>
+            <if test="appid != null  and appid != ''">and appid = #{appid}</if>
+            <if test="appsecret != null  and appsecret != ''">and appsecret = #{appsecret}</if>
+            <if test="commentStatus != null  and commentStatus != ''">and comment_status = #{commentStatus}</if>
+            <if test="blessStatus != null  and blessStatus != ''">and bless_status = #{blessStatus}</if>
+            <if test="goldStatus != null  and goldStatus != ''">and gold_status = #{goldStatus}</if>
+
+            <if test="barrageStatus != null  and barrageStatus != ''">and barrage_status = #{barrageStatus}</if>
+            <if test="musicStatus != null  and musicStatus != ''">and music_status = #{musicStatus}</if>
+
+            <if test="bridegroomName != null  and bridegroomName != ''">and bridegroom_name like concat('%',
+                #{bridegroomName}, '%')
+            </if>
+            <if test="brideName != null  and brideName != ''">and bride_name like concat('%', #{brideName}, '%')</if>
+            <if test="bridegroomTel != null  and bridegroomTel != ''">and bridegroom_tel = #{bridegroomTel}</if>
+            <if test="brideTel != null  and brideTel != ''">and bride_tel = #{brideTel}</if>
+            <if test="solarCalendar != null  and solarCalendar != ''">and solar_calendar = #{solarCalendar}</if>
+            <if test="lunarCalendar != null  and lunarCalendar != ''">and lunar_calendar = #{lunarCalendar}</if>
+            <if test="longitude != null  and longitude != ''">and longitude = #{longitude}</if>
+            <if test="latitude != null  and latitude != ''">and latitude = #{latitude}</if>
+            <if test="addr != null  and addr != ''">and addr = #{addr}</if>
+            <if test="musicName != null  and musicName != ''">and music_name like concat('%', #{musicName}, '%')</if>
+            <if test="musicUrl != null  and musicUrl != ''">and music_url = #{musicUrl}</if>
+        </where>
+    </select>
+
+    <select id="selectTMarryUserById" parameterType="Long" resultMap="TMarryUserResult">
+        <include refid="selectTMarryUserVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTMarryUser" parameterType="TMarryUser" useGeneratedKeys="true" keyProperty="id">
+        insert into t_marry_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="appid != null and appid != ''">appid,</if>
+            <if test="appsecret != null and appsecret != ''">appsecret,</if>
+            <if test="commentStatus != null and commentStatus != ''">comment_status,</if>
+            <if test="blessStatus != null">bless_status,</if>
+            <if test="goldStatus != null">gold_status,</if>
+
+            <if test="barrageStatus != null">barrage_status,</if>
+            <if test="musicStatus != null">music_status,</if>
+
+            <if test="bridegroomName != null">bridegroom_name,</if>
+            <if test="brideName != null">bride_name,</if>
+            <if test="bridegroomTel != null">bridegroom_tel,</if>
+            <if test="brideTel != null">bride_tel,</if>
+            <if test="solarCalendar != null">solar_calendar,</if>
+            <if test="lunarCalendar != null">lunar_calendar,</if>
+            <if test="longitude != null">longitude,</if>
+            <if test="latitude != null">latitude,</if>
+            <if test="addr != null">addr,</if>
+            <if test="musicName != null">music_name,</if>
+            <if test="musicUrl != null">music_url,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="appid != null and appid != ''">#{appid},</if>
+            <if test="appsecret != null and appsecret != ''">#{appsecret},</if>
+            <if test="commentStatus != null and commentStatus != ''">#{commentStatus},</if>
+            <if test="blessStatus != null">#{blessStatus},</if>
+            <if test="goldStatus != null">#{goldStatus},</if>
+
+            <if test="barrageStatus != null">#{barrageStatus},</if>
+            <if test="musicStatus != null">#{musicStatus},</if>
+
+            <if test="bridegroomName != null">#{bridegroomName},</if>
+            <if test="brideName != null">#{brideName},</if>
+            <if test="bridegroomTel != null">#{bridegroomTel},</if>
+            <if test="brideTel != null">#{brideTel},</if>
+            <if test="solarCalendar != null">#{solarCalendar},</if>
+            <if test="lunarCalendar != null">#{lunarCalendar},</if>
+            <if test="longitude != null">#{longitude},</if>
+            <if test="latitude != null">#{latitude},</if>
+            <if test="addr != null">#{addr},</if>
+            <if test="musicName != null">#{musicName},</if>
+            <if test="musicUrl != null">#{musicUrl},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTMarryUser" parameterType="TMarryUser">
+        update t_marry_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="appid != null and appid != ''">appid = #{appid},</if>
+            <if test="appsecret != null and appsecret != ''">appsecret = #{appsecret},</if>
+            <if test="commentStatus != null and commentStatus != ''">comment_status = #{commentStatus},</if>
+            <if test="blessStatus != null">bless_status = #{blessStatus},</if>
+            <if test="goldStatus != null">gold_status = #{goldStatus},</if>
+
+            <if test="barrageStatus != null">barrage_status = #{barrageStatus},</if>
+            <if test="musicStatus != null">music_status = #{musicStatus},</if>
+
+            <if test="bridegroomName != null">bridegroom_name = #{bridegroomName},</if>
+            <if test="brideName != null">bride_name = #{brideName},</if>
+            <if test="bridegroomTel != null">bridegroom_tel = #{bridegroomTel},</if>
+            <if test="brideTel != null">bride_tel = #{brideTel},</if>
+            <if test="solarCalendar != null">solar_calendar = #{solarCalendar},</if>
+            <if test="lunarCalendar != null">lunar_calendar = #{lunarCalendar},</if>
+            <if test="longitude != null">longitude = #{longitude},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="addr != null">addr = #{addr},</if>
+            <if test="musicName != null">music_name = #{musicName},</if>
+            <if test="musicUrl != null">music_url = #{musicUrl},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTMarryUserById" parameterType="Long">
+        delete from t_marry_user where id = #{id}
+    </delete>
+
+    <delete id="deleteTMarryUserByIds" parameterType="String">
+        delete from t_marry_user where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

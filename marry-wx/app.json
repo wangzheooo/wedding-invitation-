@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/splash/splash",
+    "pages/index/index",
+    "pages/photo/photo",
+    "pages/bless/bless",
+    "pages/navigation/navigation",
+    "pages/bless/blessDetail/blessDetail",
+    "pages/leaderboard/leaderboard"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#CD96CD",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "list": [{
+        "pagePath": "pages/index/index",
+        "iconPath": "image/tab/index.png",
+        "selectedIconPath": "image/tab/index1.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/photo/photo",
+        "iconPath": "image/tab/photo.png",
+        "selectedIconPath": "image/tab/photo1.png",
+        "text": "相册"
+      },
+      {
+        "pagePath": "pages/bless/bless",
+        "iconPath": "image/tab/love.png",
+        "selectedIconPath": "image/tab/love1.png",
+        "text": "祝福"
+      },
+      {
+        "pagePath": "pages/navigation/navigation",
+        "iconPath": "image/tab/map.png",
+        "selectedIconPath": "image/tab/map1.png",
+        "text": "导航"
+      }
+    ],
+    "position": "bottom",
+    "selectedColor": "#CD96CD",
+    "backgroundColor": "#fff",
+    "color": "#5f5f5f"
+  },
+  "sitemapLocation": "sitemap.json",
+  "requiredBackgroundModes": [
+    "audio"
+  ],
+  "useExtendedLib": {
+    "kbone": true,  
+    "weui": true
+  }
+}

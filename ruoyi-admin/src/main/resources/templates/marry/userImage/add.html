@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('新增婚纱照')"/>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-userImage-add" enctype="multipart/form-data">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">图片：</label>
+            <div class="col-sm-8">
+                <input name="imageUrl" class="form-control" type="file">
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var prefix = ctx + "marry/userImage"
+    $("#form-userImage-add").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            log.info($('#form-userImage-add').serialize());
+            // $.operate.save(prefix + "/add", $('#form-userImage-add').serialize());
+        }
+    }
+</script>
+</body>
+</html>

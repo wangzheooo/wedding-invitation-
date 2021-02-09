@@ -1,0 +1,34 @@
+<wux-tabs wux-class="bordered" controlled current="{{ key }}" bindchange="onTabsChange" style="position: fixed;left: 0;top:0;width: 100%;z-index: 99;">
+  <block wx:for="{{ tabs }}" wx:key="key">
+    <wux-tab key="{{ item.key }}" title="{{ item.title }}"></wux-tab>
+  </block>
+</wux-tabs>
+<swiper current="{{ index }}" bindchange="onSwiperChange" class="page_view">
+  <swiper-item>
+    <scroll-view class="tab" scroll-x="false" scroll-y="true">
+      <wux-cell-group title="注:按礼物总价排名">
+        <block wx:for="{{ tab1 }}" wx:key="key">
+          <wux-cell thumb="{{item.avatarUrl}}" title="{{item.nickName}}" extra="{{item.sumGold}}"></wux-cell>
+        </block>
+      </wux-cell-group>
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <scroll-view class="tab" scroll-x="false" scroll-y="true">
+      <wux-cell-group title="">
+        <block wx:for="{{ tab2 }}" wx:key="key">
+          <wux-cell thumb="{{item.avatarUrl}}" title="{{item.nickName}}" extra="{{item.gold}}"></wux-cell>
+        </block>
+      </wux-cell-group>
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <scroll-view class="tab" scroll-x="false" scroll-y="true">
+      <wux-cell-group title="">
+        <block wx:for="{{ tab3 }}" wx:key="key">
+          <wux-cell thumb="{{item.giftUrl}}" title="{{item.giftName}}" extra="{{item.createTime}}"></wux-cell>
+        </block>
+      </wux-cell-group>
+    </scroll-view>
+  </swiper-item>
+</swiper>

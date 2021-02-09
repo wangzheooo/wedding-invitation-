@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.marry.mapper.TUserGoldRecordMapper">
+
+    <resultMap type="TUserGoldRecord" id="TUserGoldRecordResult">
+        <result property="id" column="id"/>
+        <result property="openid" column="openid"/>
+        <result property="giftName" column="gift_name"/>
+
+        <result property="giftId" column="gift_id"/>
+
+        <result property="giftGold" column="gift_gold"/>
+        <result property="createTime" column="create_time"/>
+
+        <result property="giftUrl" column="gift_url"/>
+        <result property="nickName" column="nickName"/>
+        <result property="avatarUrl" column="avatarUrl"/>
+
+        <result property="sumGold" column="sum_gold"/>
+    </resultMap>
+
+    <sql id="selectTUserGoldRecordVo">
+        select id, openid, gift_id, gift_name, gift_gold, create_time from t_user_gold_record
+    </sql>
+
+    <select id="selectTUserGoldRecordList" parameterType="TUserGoldRecord" resultMap="TUserGoldRecordResult">
+        <include refid="selectTUserGoldRecordVo"/>
+        <where>
+            <if test="openid != null  and openid != ''">and openid = #{openid}</if>
+            <if test="giftId != null  and giftId != ''">and gift_id = #{giftId}</if>
+<!--            <if test="giftName != null  and giftName != ''">and gift_name like concat('%', #{giftName}, '%')</if>-->
+            <if test="giftGold != null  and giftGold != ''">and gift_gold = #{giftGold}</if>
+        </where>
+    </select>
+
+    <select id="selectTUserGoldRecordById" parameterType="Long" resultMap="TUserGoldRecordResult">
+        <include refid="selectTUserGoldRecordVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="getBarrage" resultMap="TUserGoldRecordResult">
+        SELECT
+            c.openid,
+            d.nickName,
+            d.avatarUrl,
+            c.gift_name,
+            c.gift_url,
+            c.id,
+            c.gift_gold
+        FROM
+            (
+            SELECT
+                a.id,
+                a.openid,
+                a.create_time,
+                b.gift_name,
+                b.gift_url,
+                b.gift_gold
+            FROM
+                t_user_gold_record a
+                LEFT JOIN t_user_gold_info b ON a.gift_id = b.id
+            ) c
+            LEFT JOIN t_user d ON c.openid = d.openId
+        ORDER BY
+            c.create_time DESC
+    </select>
+
+    <select id="getLeaderboardOfGift" resultMap="TUserGoldRecordResult">
+        select a.openid,b.nickName,b.avatarUrl,a.sum_gold from (select openid,sum(gift_gold) sum_gold from t_user_gold_record where 1=1 group by openid)a left join t_user b on a.openId=b.openId order by a.sum_gold desc
+    </select>
+
+    <select id="geGiftRecord" parameterType="String" resultMap="TUserGoldRecordResult">
+        select a.create_time,a.openid,b.gift_name,b.gift_url from t_user_gold_record a LEFT JOIN t_user_gold_info b on a.gift_id=b.id where 1=1 and a.openid=#{openid} order by a.create_time desc
+    </select>
+
+    <insert id="insertTUserGoldRecord" parameterType="TUserGoldRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user_gold_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="openid != null">openid,</if>
+<!--            <if test="giftName != null">gift_name,</if>-->
+            <if test="giftId != null">gift_id,</if>
+            <if test="giftGold != null">gift_gold,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="openid != null">#{openid},</if>
+<!--            <if test="giftName != null">#{giftName},</if>-->
+            <if test="giftId != null">#{giftId},</if>
+            <if test="giftGold != null">#{giftGold},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTUserGoldRecord" parameterType="TUserGoldRecord">
+        update t_user_gold_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="openid != null">openid = #{openid},</if>
+<!--            <if test="giftName != null">gift_name = #{giftName},</if>-->
+            <if test="giftId != null">gift_id = #{giftId},</if>
+            <if test="giftGold != null">gift_gold = #{giftGold},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTUserGoldRecordById" parameterType="Long">
+        delete from t_user_gold_record where id = #{id}
+    </delete>
+
+    <delete id="deleteTUserGoldRecordByIds" parameterType="String">
+        delete from t_user_gold_record where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

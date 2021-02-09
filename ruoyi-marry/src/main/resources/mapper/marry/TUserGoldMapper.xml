@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.marry.mapper.TUserGoldMapper">
+
+    <resultMap type="TUserGold" id="TUserGoldResult">
+        <result property="id" column="id"/>
+        <result property="openid" column="openid"/>
+        <result property="gold" column="gold"/>
+
+        <result property="nickName" column="nickName"/>
+        <result property="avatarUrl" column="avatarUrl"/>
+    </resultMap>
+
+    <sql id="selectTUserGoldVo">
+        select id, openid, gold from t_user_gold
+    </sql>
+
+    <select id="selectTUserGoldList" parameterType="TUserGold" resultMap="TUserGoldResult">
+        <include refid="selectTUserGoldVo"/>
+        <where>
+            <if test="openid != null  and openid != ''">and openid = #{openid}</if>
+            <if test="gold != null ">and gold = #{gold}</if>
+        </where>
+        order by gold desc
+    </select>
+
+    <select id="selectTUserGoldById" parameterType="Long" resultMap="TUserGoldResult">
+        <include refid="selectTUserGoldVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectTUserGoldByOpenId" parameterType="String" resultMap="TUserGoldResult">
+        <include refid="selectTUserGoldVo"/>
+        where openid = #{openid}
+    </select>
+
+    <select id="getLeaderboardOfGold" resultMap="TUserGoldResult">
+        select a.id,a.openid,b.nickName,b.avatarUrl,a.gold from t_user_gold a  LEFT JOIN t_user b on a.openid=b.openid where 1=1 order by a.gold desc
+    </select>
+
+    <insert id="insertTUserGold" parameterType="TUserGold" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user_gold
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="openid != null">openid,</if>
+            <if test="gold != null">gold,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="openid != null">#{openid},</if>
+            <if test="gold != null">#{gold},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTUserGold" parameterType="TUserGold">
+        update t_user_gold
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="openid != null">openid = #{openid},</if>
+            <if test="gold != null">gold = #{gold},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTUserGoldById" parameterType="Long">
+        delete from t_user_gold where id = #{id}
+    </delete>
+
+    <delete id="deleteTUserGoldByIds" parameterType="String">
+        delete from t_user_gold where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

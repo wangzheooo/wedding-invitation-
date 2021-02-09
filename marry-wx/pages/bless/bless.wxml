@@ -1,0 +1,99 @@
+<!--pages/bless/index.wxml-->
+<wux-dialog id="wux-dialog" />
+<wux-toast id="wux-toast" />
+
+<view class="container">
+	<view class="title" wx:if="{{zanLog.length > 0}}">已收到 {{zanLog.length}} 位好友的祝福</view>
+	<view class="title" wx:if="{{zanLog.length == 0}}"> 点击下方按钮可送上祝福 </view>
+
+	<!-- 礼物图片 -->
+	<view class='gift {{isDoudong?"doudong":""}}' bindtap='pointGift' style="display:{{goldStatus}}"></view>
+	<!-- 送礼物展示页 -->
+	<view class="{{showGiftView?'giftinfo_show':'giftinfo_hide'}}" catchtouchmove="preventTouchMove">
+		<view id="gold_content" class="gold_content">
+
+			<!-- 礼物轮播 -->
+			<swiper indicator-dots="true" current="{{ index }}" class="gift_swiper">
+				<block wx:for="{{ tabs }}" wx:key="key">
+					<swiper-item>
+						<view id="golds_view" class="golds_view">
+							<block wx:for="{{ item }}" wx:key="key">
+								<view class="nobreak" data-id="{{ item.id }}" data-giftName="{{ item.giftName }}"
+									data-giftGold="{{ item.giftGold }}" data-giftUrl="{{ item.giftUrl }}" bindtap='pointGiftAndSend'>
+									<view class="gift_image_view">
+										<image class="gift_image" src="{{ item.giftUrl }}"></image>
+									</view>
+									<view class="girt_text">
+										{{ item.giftName }}
+									</view>
+									<view class="girt_gold">
+										💰{{ item.giftGold }}
+									</view>
+								</view>
+							</block>
+						</view>
+					</swiper-item>
+				</block>
+			</swiper>
+
+		</view>
+		<view id="gold_footer" class="gold_footer">
+			<view class="gift_gold_seq" bindtap='pointLeaderboard'>排行榜</view>
+			<view class="gift_gold">💰：{{gold_money}}</view>
+		</view>
+	</view>
+
+	<!-- 弹幕 -->
+	<view style="position:fixed;z-index: 90;width: 100%;height: 40%;top:40%;left:0%">
+		<view class="container_canvas">
+			<canvas wx:if="{{version === 'v2'}}" type="2d" id="canvas" style="width: 100%; height: 80%;"></canvas>
+			<canvas wx:else canvas-id="canvas" id="canvas" style="width: 100%; height: 80%;"></canvas>
+		</view>
+	</view>
+
+	<view class="friends">
+		<!-- <view bindtap='loadMoreFriends' class="face" wx:for="{{zanLog}}" wx:key="user">
+      <image src="{{item.face}}" />
+    </view> -->
+		<view bindtap='loadMoreFriends' class="face" wx:for="{{zanLog}}" wx:key="user">
+			<image src="{{item.nickImage=='avatar_visitor.png'?'../../image/others/avatar_visitor.png':item.nickImage}}" />
+		</view>
+	</view>
+	<view class="btn_zone">
+		<view class="zan fl">
+			<button type="primary" bindtap='zan'>送上祝福</button>
+		</view>
+		<view class="share fr">
+			<button type="default" open-type="share">分享</button>
+		</view>
+	</view>
+
+	<view class="chat_view" wx:if="{{chatList.length > 0}}">
+		<view class="chat_list" wx:for="{{chatList}}" wx:key="user">
+			<view class="chat_face">
+				<image src="{{item.nickImage=='avatar_visitor.png'?'../../image/others/avatar_visitor.png':item.nickImage}}" />
+			</view>
+			<view class="chat_words">
+				<view class="chat_meta">
+					<!-- <text class="chat_user">{{item.nickname}}</text>
+          <text class="chat_date">{{item.time}}</text> -->
+					<text class="chat_user">{{item.nickName}}</text>
+					<text class="chat_date">{{item.createTime}}</text>
+				</view>
+				<!-- <view>{{item.words}}</view> -->
+				<view>{{item.comment}}</view>
+			</view>
+		</view>
+	</view>
+	<view wx:else>
+		<view class="befirst">
+			<image src="/image/lovemail.gif" />
+		</view>
+	</view>
+	<view class="send_msg" style="display:{{commentStatus}}">
+		<form bindreset="foo">
+			<input placeholder="在这里输入您要说的话" class="send_ipt" bindinput="bindKeyInput"  cursor-spacing="15"/>
+			<button type="primary" form-type="reset" class="send_btn">发布</button>
+		</form>
+	</view>
+</view>

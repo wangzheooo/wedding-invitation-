@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('其他照片')"/>
+    <style>
+
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+        }
+
+        .goods {
+            width: 104px;
+            max-width: 104px;
+            margin-right: 40px;
+            box-sizing: border-box;
+        }
+
+        .image-content {
+            width: 104px;
+            height: 130px;
+            padding: 1px;
+            margin: 0;
+            position: relative;
+            border-radius: 2px;
+            border: 1px solid #e4e4e4;
+            box-sizing: border-box;
+        }
+
+        .marryPicture {
+            width: 100px;
+            height: 120px;
+            margin-top: 5px;
+            pointer-events: none;
+            object-fit: contain;
+            object-position: center;
+            border-style: none;
+            box-sizing: border-box;
+        }
+
+        .cargo-no-Product {
+            margin-top: 20px;
+            /*margin-bottom: 5px;*/
+            width: 100px;
+            height: 83px;
+            font-weight: 300;
+            line-height: 83px;
+            text-align: center;
+            font-size: 50px;
+            color: #999;
+            cursor: pointer;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .btn08 {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            -webkit-box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.3);
+            -moz-box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.3);
+            box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.3);
+            border: 0;
+        }
+
+        .btn08 .ovrly {
+            background: rgba(0, 0, 0, 0.5);
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            opacity: 0;
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            -o-transition: all 0.3s;
+            transition: all 0.3s;
+            border: 0;
+        }
+
+        .btn08 .buttons {
+            position: absolute;
+            /*background: red;*/
+            text-align: center;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        .btn08 .buttons .fa {
+            background-color: rgb(256, 256, 256);
+            -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+            -moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            display: inline-block;
+            line-height: 40px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            width: 40px;
+            height: 40px;
+            opacity: 0;
+            -webkit-transform: scale(0);
+            -moz-transform: scale(0);
+            -ms-transform: scale(0);
+            -o-transform: scale(0);
+            transform: scale(0);
+            position: relative;
+            -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+            -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+            -o-transition: -o-transform 0.3s, opacity 0.3s;
+            transition: transform 0.3s, opacity 0.3s;
+            color: transparent;
+        }
+
+        .btn08:hover .buttons .fa {
+            opacity: 1;
+            -webkit-transform: scale(1);
+            -moz-transform: scale(1);
+            -ms-transform: scale(1);
+            -o-transform: scale(1);
+            transform: scale(1);
+            color: rgba(50, 50, 50, 0.9);
+        }
+
+        .btn08:hover .ovrly {
+            opacity: 1;
+        }
+
+        . ivu-alert {
+            padding: 8px 48px 8px 38px;
+            border-radius: 0;
+            border-radius: 0;
+            position: relative;
+            border-radius: 6px;
+            color: #495060;
+            font-size: 12px;
+            line-height: 16px;
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body class="gray-bg">
+<div class="main-content">
+    <form class="form-horizontal" id="form-user-edit">
+        <h4 class="form-header h4">小程序封面照片</h4>
+        <div class="goods">
+            <div class="image-content btn08">
+                <div class="ovrly"></div>
+                <div class="buttons">
+                    <a href="#" id="a002" class="fa fa-link" onclick="updateImage('002')"></a>
+                </div>
+                <img class="marryPicture"
+                     th:if="${tUserOtherImage002!=null&&tUserOtherImage002!=''}"
+                     th:src="${tUserOtherImage002.imageUrlFinally}">
+                <div class="cargo-no-Product">
+                    +
+                </div>
+            </div>
+        </div>
+        <h4 class="form-header h4">小程序首页海报照片</h4>
+        <div class="goods">
+            <div class="image-content btn08">
+                <div class="ovrly"></div>
+                <div class="buttons">
+                    <a href="#" id="a003" class="fa fa-link" onclick="updateImage('003')"></a>
+                </div>
+                <img class="marryPicture"
+                     th:if="${tUserOtherImage003!=null&&tUserOtherImage003!=''}"
+                     th:src="${tUserOtherImage003.imageUrlFinally}">
+                <div class="cargo-no-Product">
+                    +
+                </div>
+            </div>
+        </div>
+        <h4 class="form-header h4">小程序分享照片</h4>
+        <div class="goods">
+            <div class="image-content btn08">
+                <div class="ovrly"></div>
+                <div class="buttons">
+                    <a href="#" id="a004" class="fa fa-link" onclick="updateImage('004')"></a>
+                </div>
+                <img class="marryPicture"
+                     th:if="${tUserOtherImage004!=null&&tUserOtherImage004!=''}"
+                     th:src="${tUserOtherImage004.imageUrlFinally}">
+                <div class="cargo-no-Product">
+                    +
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div style="font-weight:bold;color: red;">
+    注:<br/>
+    1.此页为小程序需要到的其他照片,和婚纱照功能一样<br>
+    2.如果不用oss,可以把照片放在QQ空间,右键照片在新标签页打开图片,然后复制图片链接,把数据手动填到t_user_image表里<br>
+    3.如果是QQ空间的链接,在后台管理系统可能显示未经允许不可引用,不用担心,在小程序里是正常显示的<br>
+    4.如果觉得裁剪功能不好,可以手动上传图片到oss,然后手动添加数据到把数据手动填到t_user_image表里<br>
+    5.t_user_image表主要字段介绍:id随意填不可重复,image_url为图片链接,seq为播放顺序,type填001,创建时间可以不填<br>
+    6.type字段介绍:001婚纱照,002封面,003首页海报,004分享展示,其中表里002,003,004的照片只能有一张,因为头像/海报/分享页照片只能有一张,如果表里出现了两个002,默认获取第一张<br>
+    7.小程序的图片显示:如果图片分辨率和手机分辨率不一样,小程序会根据屏幕大小对照片裁剪,不会变宽或者变长,详情见小程序的util.js的imageUtil()方法
+</div>
+
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var prefix = ctx + "marry/userOtherImage";
+
+    /*    var tUserOtherImage002 = [[${tUserOtherImage002}]];
+        var tUserOtherImage003 = [[${tUserOtherImage003}]];
+        var tUserOtherImage004 = [[${tUserOtherImage004}]];
+        log.info(tUserOtherImage002);
+        log.info(tUserOtherImage003);
+        log.info(tUserOtherImage004);*/
+
+    /*婚纱照图片上传*/
+    function updateImage(type) {
+        var url = ctx + 'marry/userOtherImage/image' + type;
+        log.info(url);
+        top.layer.open({
+            type: 2,
+            area: [$(window).width() + 'px', $(window).height() + 'px'],
+            fix: false,
+            //不固定
+            maxmin: true,
+            shade: 0.3,
+            title: "添加照片",
+            content: url,
+            btn: ['确定', '关闭'],
+            // 弹层外区域关闭
+            shadeClose: true,
+            yes: function (index, layero) {
+                var iframeWin = layero.find('iframe')[0];
+                iframeWin.contentWindow.submitHandler(index, layero);
+            },
+            cancel: function (index) {
+                return true;
+            }
+        });
+    }
+</script>
+</body>
+</html>

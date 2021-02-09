@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.marry.mapper.TUserImageMapper">
+
+    <resultMap type="TUserImage" id="TUserImageResult">
+        <result property="id" column="id"/>
+        <result property="imageUrl" column="image_url"/>
+        <result property="seq" column="seq"/>
+        <result property="type" column="type"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectTUserImageVo">
+        select id, image_url, seq, type, create_time from t_user_image
+    </sql>
+
+    <select id="selectTUserImageList" parameterType="TUserImage" resultMap="TUserImageResult">
+        <include refid="selectTUserImageVo"/>
+        <where>
+            <if test="imageUrl != null  and imageUrl != ''">and image_url = #{imageUrl}</if>
+            <if test="type != null  and type != ''">and type = #{type}</if>
+        </where>
+        order by type,seq
+    </select>
+
+    <select id="selectTUserImageById" parameterType="String" resultMap="TUserImageResult">
+        <include refid="selectTUserImageVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTUserImage" parameterType="TUserImage">
+        insert into t_user_image
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="imageUrl != null">image_url,</if>
+            <if test="seq != null">seq,</if>
+            <if test="type != null">type,</if>
+            <if test="createTime != null ">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="imageUrl != null">#{imageUrl},</if>
+            <if test="seq != null">#{seq},</if>
+            <if test="type != null">#{type},</if>
+            <if test="createTime != null ">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTUserImage" parameterType="TUserImage">
+        update t_user_image
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="imageUrl != null">image_url = #{imageUrl},</if>
+            <if test="seq != null">seq = #{seq},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTUserImageById" parameterType="String">
+        delete from t_user_image where id = #{id}
+    </delete>
+
+    <delete id="deleteTUserImageByType" parameterType="String">
+        delete from t_user_image where type = #{type}
+    </delete>
+
+    <delete id="deleteTUserImageByIds" parameterType="String">
+        delete from t_user_image where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

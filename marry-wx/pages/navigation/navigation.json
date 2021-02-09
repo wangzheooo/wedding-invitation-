@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "导航",
+  "usingComponents": {
+    "wux-cell": "../../dist/cell/index",
+    "wux-landscape": "../../dist/landscape/index",
+    "wux-white-space": "../../dist/white-space/index",
+    "wux-refresher": "../../dist/refresher/index",
+    "wux-popover": "../../dist/popover/index",
+    "wux-button": "../../dist/button/index",
+    "wux-dialog": "../../dist/dialog/index",
+    "wux-toast": "../../dist/toast/index"
+  }
+}

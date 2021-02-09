@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.marry.mapper.TUserRecordMapper">
+    
+    <resultMap type="TUserRecord" id="TUserRecordResult">
+        <result property="id"    column="id"    />
+        <result property="openId"    column="openId"    />
+        <result property="avatarUrl"    column="avatarUrl"    />
+        <result property="city"    column="city"    />
+        <result property="nickName"    column="nickName"    />
+        <result property="province"    column="province"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectTUserRecordVo">
+        select id, openId, avatarUrl, city, nickName, province, create_time from t_user_record
+    </sql>
+
+    <select id="selectTUserRecordList" parameterType="TUserRecord" resultMap="TUserRecordResult">
+        <include refid="selectTUserRecordVo"/>
+        <where>  
+            <if test="openId != null  and openId != ''"> and openId = #{openId}</if>
+            <if test="avatarUrl != null  and avatarUrl != ''"> and avatarUrl = #{avatarUrl}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="nickName != null  and nickName != ''"> and nickName like concat('%', #{nickName}, '%')</if>
+            <if test="province != null  and province != ''"> and province = #{province}</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <select id="selectTUserRecordById" parameterType="Long" resultMap="TUserRecordResult">
+        <include refid="selectTUserRecordVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTUserRecord" parameterType="TUserRecord">
+        insert into t_user_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="openId != null">openId,</if>
+            <if test="avatarUrl != null">avatarUrl,</if>
+            <if test="city != null">city,</if>
+            <if test="nickName != null">nickName,</if>
+            <if test="province != null">province,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="openId != null">#{openId},</if>
+            <if test="avatarUrl != null">#{avatarUrl},</if>
+            <if test="city != null">#{city},</if>
+            <if test="nickName != null">#{nickName},</if>
+            <if test="province != null">#{province},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTUserRecord" parameterType="TUserRecord">
+        update t_user_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="openId != null">openId = #{openId},</if>
+            <if test="avatarUrl != null">avatarUrl = #{avatarUrl},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="nickName != null">nickName = #{nickName},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTUserRecordById" parameterType="Long">
+        delete from t_user_record where id = #{id}
+    </delete>
+
+    <delete id="deleteTUserRecordByIds" parameterType="String">
+        delete from t_user_record where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

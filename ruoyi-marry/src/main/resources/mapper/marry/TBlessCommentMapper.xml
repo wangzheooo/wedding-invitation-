@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.marry.mapper.TBlessCommentMapper">
+
+    <resultMap type="TBlessComment" id="TBlessCommentResult">
+        <result property="id" column="id"/>
+        <result property="openId" column="open_id"/>
+        <result property="comment" column="comment"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="nickImage" column="nick_image"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectTBlessCommentVo">
+        select id, open_id, comment, nick_name, nick_image, create_time from t_bless_comment
+    </sql>
+
+    <select id="selectTBlessCommentList" parameterType="TBlessComment" resultMap="TBlessCommentResult">
+        <include refid="selectTBlessCommentVo"/>
+        <where>
+            <if test="openId != null  and openId != ''">and open_id = #{openId}</if>
+            <if test="comment != null  and comment != ''">and comment = #{comment}</if>
+            <if test="nickName != null  and nickName != ''">and nick_name like concat('%', #{nickName}, '%')</if>
+            <if test="nickImage != null  and nickImage != ''">and nick_image = #{nickImage}</if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectTBlessComments" resultMap="TBlessCommentResult">
+        select a.id, a.open_id, a.comment, b.nickName nick_name, b.avatarUrl nick_image, a.create_time
+        from t_bless_comment a left join t_user b on a.open_id=b.openId
+        order by create_time desc
+    </select>
+
+    <select id="selectTBlessCommentById" parameterType="Integer" resultMap="TBlessCommentResult">
+        <include refid="selectTBlessCommentVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTBlessComment" parameterType="TBlessComment" useGeneratedKeys="true" keyProperty="id">
+        insert into t_bless_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="openId != null">open_id,</if>
+            <if test="comment != null">comment,</if>
+            <if test="nickName != null">nick_name,</if>
+            <if test="nickImage != null">nick_image,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="openId != null">#{openId},</if>
+            <if test="comment != null">#{comment},</if>
+            <if test="nickName != null">#{nickName},</if>
+            <if test="nickImage != null">#{nickImage},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTBlessComment" parameterType="TBlessComment">
+        update t_bless_comment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="openId != null">open_id = #{openId},</if>
+            <if test="comment != null">comment = #{comment},</if>
+            <if test="nickName != null">nick_name = #{nickName},</if>
+            <if test="nickImage != null">nick_image = #{nickImage},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTBlessCommentById" parameterType="Integer">
+        delete from t_bless_comment where id = #{id}
+    </delete>
+
+    <delete id="deleteTBlessCommentByIds" parameterType="String">
+        delete from t_bless_comment where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

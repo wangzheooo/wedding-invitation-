@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.marry.mapper.TBlessUserMapper">
+
+    <resultMap type="TBlessUser" id="TBlessUserResult">
+        <result property="id" column="id"/>
+        <result property="openId" column="open_id"/>
+        <result property="createTime" column="create_time"/>
+
+        <result property="nickImage"    column="nick_image"    />
+        <result property="nickName"    column="nick_name"    />
+    </resultMap>
+
+    <sql id="selectTBlessUserVo">
+        select id, open_id, create_time from t_bless_user
+    </sql>
+
+    <select id="selectTBlessUserList" parameterType="TBlessUser" resultMap="TBlessUserResult">
+        <include refid="selectTBlessUserVo"/>
+        <where>
+            <if test="id != null ">and id = #{id}</if>
+            <if test="openId != null  and openId != ''">and open_id = #{openId}</if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="selectTBlessUserListAll" parameterType="TBlessUser" resultMap="TBlessUserResult">
+        SELECT
+            t.id,
+            t.create_time,
+            t.open_id,
+            a.avatarurl nick_image,
+            a.nickname nick_name
+        FROM
+            T_BLESS_USER t,
+            t_user a
+        WHERE
+            1 = 1
+            AND t.open_id = a.openid
+        ORDER BY
+            t.create_time DESC
+    </select>
+
+    <select id="selectTBlessUserById" parameterType="Integer" resultMap="TBlessUserResult">
+        <include refid="selectTBlessUserVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTBlessUser" parameterType="TBlessUser" useGeneratedKeys="true" keyProperty="id">
+        insert into t_bless_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="openId != null">open_id,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="openId != null">#{openId},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTBlessUser" parameterType="TBlessUser">
+        update t_bless_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="openId != null">open_id = #{openId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTBlessUserById" parameterType="Integer">
+        delete from t_bless_user where id = #{id}
+    </delete>
+
+    <delete id="deleteTBlessUserByIds" parameterType="String">
+        delete from t_bless_user where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('婚纱照列表')"/>
+    <th:block th:include="include :: bootstrap-editable-css"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-success" onclick="updateImage()" shiro:hasPermission="marry:userImage:add">
+                <i class="fa fa-plus"></i> 上传
+            </a>
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table"></table>
+        </div>
+
+        <div style="font-weight:bold;color: red;">
+            注:<br/>
+            1.此页为婚纱照上传,可以编辑照片播放顺序,该照片存放在oss中<br>
+            2.如果不用oss,可以把照片放在QQ空间,右键照片在新标签页打开图片,然后复制图片链接,把数据手动填到t_user_image表里<br>
+            3.如果是QQ空间的链接,在后台管理系统可能显示未经允许不可引用,不用担心,在小程序里是正常显示的<br>
+            4.如果觉得裁剪功能不好,可以手动上传图片到oss,然后手动添加数据到把数据手动填到t_user_image表里<br>
+            5.t_user_image表主要字段介绍:id随意填不可重复,image_url为图片链接,seq为播放顺序,type填001,创建时间可以不填<br>
+            6.type字段介绍:001婚纱照,002封面,003首页海报,004分享展示,其中表里002,003,004的照片只能有一张,因为头像/海报/分享页照片只能有一张,如果表里出现了两个002,默认获取第一张<br>
+            7.小程序的图片显示:如果图片分辨率和手机分辨率不一样,小程序会根据屏幕大小对照片裁剪,不会变宽或者变长,详情见小程序的util.js的imageUtil()方法
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: bootstrap-table-editable-js"/>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('marry:userImage:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('marry:userImage:remove')}]];
+    var prefix = ctx + "marry/userImage";
+
+    $(function () {
+        var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "婚纱照",
+                onEditableSave: onEditableSave,
+                rowStyle: function (row, index) {
+                    var style = {css: {'height': '100px'}};
+                    return style;
+                },
+                columns: [{
+                    field: 'no',
+                    title: '序号',
+                    align: "center",
+                    width: 40,
+                    formatter: function (value, row, index) {
+                        //获取每页显示的数量
+                        var pageSize = $('#bootstrap-table').bootstrapTable('getOptions').pageSize;
+                        //获取当前是第几页
+                        var pageNumber = $('#bootstrap-table').bootstrapTable('getOptions').pageNumber;
+                        //返回序号，注意index是从0开始的，所以要加上1
+                        return pageSize * (pageNumber - 1) + index + 1;
+                    }
+                },
+                    {
+                        field: 'id',
+                        title: '主表ID',
+                        visible: false
+                    },
+                    {
+                        field: 'imageUrl',
+                        title: '图片链接'
+                    },
+                    {
+                        field: 'imageUrlFinally',
+                        title: '图片',
+                        formatter: function (value, row, index) {
+                            return $.common.sprintf("<img class='img-circle img-xs' data-height='%s' data-width='%s' data-target='%s' src='%s' style='width: 45px;height: 100px;border-radius: 0%;'/>", 600, 270, "self", value);
+                        }
+                    },
+                    {
+                        field: 'seq',
+                        title: '顺序',
+                        editable: true
+                    },
+                    {
+                        field: 'createTime',
+                        title: '创建时间'
+                    },
+                    {
+                        title: '操作',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var actions = [];
+                            actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                            return actions.join('');
+                        }
+                    }]
+            }
+        ;
+        $.table.init(options);
+    });
+
+    /*婚纱照图片上传*/
+    function updateImage() {
+        var url = ctx + 'marry/userImage/image';
+        top.layer.open({
+            type: 2,
+            area: [$(window).width() + 'px', $(window).height() + 'px'],
+            fix: false,
+            //不固定
+            maxmin: true,
+            shade: 0.3,
+            title: "添加照片",
+            content: url,
+            btn: ['确定', '关闭'],
+            // 弹层外区域关闭
+            shadeClose: true,
+            yes: function (index, layero) {
+                var iframeWin = layero.find('iframe')[0];
+                iframeWin.contentWindow.submitHandler(index, layero);
+            },
+            cancel: function (index) {
+                return true;
+            }
+        });
+    }
+
+    function onEditableSave(field, row, oldValue, $el) {
+        // log.info("字段名：" + field + "，当前值：" + row[field] + "，旧值：" + oldValue);
+        var value = row[field];
+        log.info(value);
+
+        if (value % 1 === 0) {
+            $.ajax({
+                url: prefix + "/editCell",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    id: row.id,
+                    field: field,
+                    cellValue: value
+                },
+                success: function (result) {
+                    $.operate.ajaxSuccess(result);
+                }
+            });
+        } else {
+            $.modal.msgError("请输入一个整数");
+        }
+    }
+</script>
+</body>
+</html>

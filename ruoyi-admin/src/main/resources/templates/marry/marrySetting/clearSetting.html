@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('一键清除')"/>
+    <th:block th:include="include :: select2-css"/>
+</head>
+<body class="gray-bg">
+<div class="main-content">
+    <form class="form-horizontal" id="form-clear">
+        <h4 class="form-header h4">一键清除</h4>
+
+        <div class="form-group">
+            <div class="col-sm-10">
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="chElt" onclick="checkOrCancelAll();"/><span
+                        id="mySpan">全选/全不选</span><br/>
+                </label>
+                <br><br>
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="t_user" name="checkbox" id="t_user" checked>用户表(t_user)
+                </label>
+                <br>
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="t_user_record" name="checkbox" id="t_user_record" checked>用户访问记录表(t_user_record)
+                </label>
+                <br>
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="t_bless_user" name="checkbox" id="t_bless_user" checked>祝福表(t_bless_user)
+                </label>
+                <br>
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="t_bless_comment" name="checkbox" id="t_bless_comment" checked>留言表(t_bless_comment)
+                </label>
+                <br>
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="t_user_gold" name="checkbox" id="t_user_gold" checked>金额表(t_user_gold)
+                </label>
+                <br>
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="t_user_gold_record" name="checkbox" id="t_user_gold_record"
+                           checked>礼物记录表(t_user_gold_record)
+                </label>
+                <br>
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="t_user_gold_info" name="checkbox" id="t_user_gold_info">礼物维护表(t_user_gold_info)
+                </label>
+                <br>
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="t_user_image" name="checkbox" id="t_user_image">婚纱照图片表(t_user_image)
+                </label>
+                <br>
+            </div>
+        </div>
+    </form>
+    <div>
+        <font color="red"><b>注:此功能主要为了开发测试用</font>
+    </div>
+</div>
+<div class="col-sm-10">
+    <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()">执行清除
+    </button>&nbsp;
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: select2-js"/>
+<script th:inline="javascript">
+    var prefix = ctx + "marry/marrySetting";
+
+    function submitHandler() {
+
+        $.modal.confirm("确认要清空数据吗？", function () {
+            if ($.validate.form()) {
+                var allCheck = document.getElementsByName("checkbox");
+                var listData = [];
+                for (var i = 0; i < allCheck.length; i++) {
+                    if (allCheck[i].checked) {
+                        listData.push(allCheck[i].id)
+                    }
+                }
+                var params = {
+                    listData: listData
+                };
+                $.ajax({
+                    url: prefix + "/clearExe",
+                    type: 'post',
+                    dataType: "json",
+                    data: params,
+                    success: function (result) {
+                        $.operate.ajaxSuccess(result);
+                    }
+                });
+            }
+        })
+    }
+
+    function checkOrCancelAll() {
+        var chElt = document.getElementById("chElt");
+        var checkedElt = chElt.checked;
+        var allCheck = document.getElementsByName("checkbox");
+
+        if (checkedElt) {
+            for (var i = 0; i < allCheck.length; i++) {
+                allCheck[i].checked = true;
+            }
+        } else {
+            for (var i = 0; i < allCheck.length; i++) {
+                allCheck[i].checked = false;
+            }
+        }
+    }
+</script>
+</body>
+</html>

@@ -126,16 +126,16 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label is-required">小程序appid：</label>
                     <div class="col-sm-8">
-                        <input name="appid" placeholder="请输入appid" class="form-control" type="text" maxlength="30"
-                               autocomplete="off" th:field="*{appid}"
+                        <input name="appid" placeholder="请输入appid" class="form-control" type="password" maxlength="30"
+                               autocomplete="off" th:value="*{appid}"
                                required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label is-required">小程序appsecret：</label>
                     <div class="col-sm-8">
-                        <input name="appsecret" placeholder="请输入appsecret" class="form-control" type="text"
-                               maxlength="50" autocomplete="off" th:field="*{appsecret}"
+                        <input name="appsecret" placeholder="请输入appsecret" class="form-control" type="password"
+                               maxlength="50" autocomplete="off" th:value="*{appsecret}"
                                required>
                     </div>
                 </div>
@@ -229,11 +229,12 @@
         1.此页为主要信息<br>
         2.评论开关主要用于小程序审核提交,提交时把评论关掉<br>
         3.弹幕开关和音乐开关主要用于小程序开发时让世界安静<br>
+        4.保存按钮已经隐藏<br>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-offset-5 col-sm-10">
-        <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>保 存
+        <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()" shiro:hasPermission="marry:marrySetting:edit"><i class="fa fa-check"></i>保 存
         </button>&nbsp;
     </div>
 </div>

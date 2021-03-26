@@ -304,15 +304,16 @@ Page({
       that.openBarrage();
     }
 
-    wx.getUserInfo({
-        success: function (res) {
-          that.setData({
-            userInfo: res.userInfo
-          })
-          //console.log(res.userInfo)
-        }
-      }),
-      that.getPraiseList(),
+    // wx.getUserInfo({
+    //     success: function (res) {
+    //       that.setData({
+    //         userInfo: res.userInfo
+    //       })
+    //       //console.log(res.userInfo)
+    //     }
+    //   }),
+
+    that.getPraiseList(),
       that.getCommentList(),
 
       //抖动相关的
@@ -545,11 +546,11 @@ Page({
         success: res => {
           if (200 == res.statusCode) {
             that.getCommentList();
-              wx.showModal({
-                title: '提示',
-                content: res.data.message,
-                showCancel: false
-              });
+            wx.showModal({
+              title: '提示',
+              content: res.data.message,
+              showCancel: false
+            });
           }
         }
       })

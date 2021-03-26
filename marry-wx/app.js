@@ -51,18 +51,10 @@ App({
       })
     }
 
-  },
-  onHide: function () {
-    backgroundAudioManager.pause()
-  },
-  onShow: function () {
-    backgroundAudioManager.play()
-  },
-  getUserInfo: function (cb) {
-    var that = this
-    //调用登录接口，获取code
     wx.login({
       success: function (res) {
+        // console.log("new res")
+        // console.log(res)
         //发起网络请求
         wx.request({
           url: api.mobileIn,
@@ -74,25 +66,65 @@ App({
           success: function (res) {
             // 将openId设成全局
             that.globalData.openId = res.data.openid
-            //console.log('res.data.openid', res.data.openid)
-            wx.getUserInfo({
-              success: function (res) {
-                // 将userInfo设成全局,这个是用户授权后第二次登录直接获取userinfo,首次登录该方法没有用
-                that.globalData.userInfo = res.userInfo
-                typeof cb == "function" && cb(that.globalData.userInfo, that.globalData.openId, that.globalData.user)
-              }
-            })
           },
           fail: function (res) {
             console.info("get code fail");
           },
           complete: function (res) {
             // console.info("get code complete");
+            // console.log('res.data.openid', res.data.openid)
           }
         });
       }
     })
+
   },
+  onHide: function () {
+    backgroundAudioManager.pause()
+  },
+  onShow: function () {
+    backgroundAudioManager.play()
+  },
+  //此功能20210413后将不能用,已经注释
+  // getUserInfo: function (cb) {
+  //   var that = this
+  //   //调用登录接口，获取code
+  //   wx.login({
+  //     success: function (res) {
+  //       // console.log("new res")
+  //       // console.log(res)
+  //       //发起网络请求
+  //       wx.request({
+  //         url: api.mobileIn,
+  //         data: {
+  //           flag: 'GET_OPENID',
+  //           code: res.code,
+  //         },
+  //         method: 'GET',
+  //         success: function (res) {
+  //           // 将openId设成全局
+  //           that.globalData.openId = res.data.openid
+  //           console.log('res.data.openid', res.data.openid)
+  //           wx.getUserInfo({
+  //             success: function (res) {
+  //               // 将userInfo设成全局,这个是用户授权后第二次登录直接获取userinfo,首次登录该方法没有用
+  //               console.log("new res")
+  //               console.log(res)
+  //               that.globalData.userInfo = res.userInfo
+  //               typeof cb == "function" && cb(that.globalData.userInfo, that.globalData.openId, that.globalData.user)
+  //             }
+  //           })
+  //         },
+  //         fail: function (res) {
+  //           console.info("get code fail");
+  //         },
+  //         complete: function (res) {
+  //           // console.info("get code complete");
+  //         }
+  //       });
+  //     }
+  //   })
+  // },
   globalData: {
     userInfo: null,
     openId: null,

@@ -3,6 +3,7 @@ var app = getApp();
 
 Page({
   data: {
+    userInfo: {},
     remind: '加载中',
     help_status: false,
     userid_focus: false,
@@ -10,7 +11,9 @@ Page({
     userid: '',
     passwd: '',
     angle: 0,
-    logo: ''
+    logo: '',
+    canIUseGetUserProfile: false,
+    hasUserInfo: false
   },
   onLoad: function () {
     var that = this
@@ -19,13 +22,18 @@ Page({
       wave: '../../image/wave.png',
       loading: '../../image/loading.gif'
     })
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo(function (userInfo) {
-      //更新数据
-      that.setData({
-        userInfo: userInfo
-      })
-    })
+
+    //调用应用实例的方法获取全局数据,20210413起停止使用,默认授权后也不能静默获取了,肯定会弹窗
+    // app.getUserInfo(function (userInfo) {
+    //   //更新数据
+    //   that.setData({
+    //     userInfo: userInfo
+    //   })
+    // })
+
+    // console.log("首次获取userInfo")
+    // console.log(that.data.userInfo)
+
     wx.request({
       url: api.mobileIn,
       method: 'GET',
@@ -45,6 +53,12 @@ Page({
         // console.info("get image complete");
       }
     });
+
+    if (wx.getUserProfile) {
+      this.setData({
+        canIUseGetUserProfile: true
+      })
+    }
 
   },
   onReady: function () {
@@ -69,8 +83,26 @@ Page({
     });
   },
   btnEnter: function () {
-    //这个方法不用了
-    this.goHome()
+    var that = this
+    wx.getUserProfile({
+      desc: '用于显示祝福人信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+      success: (res) => {
+        that.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+        app.globalData.userInfo = res.userInfo
+      },
+      complete: () => {
+        // console.log("最终获取userInfo")
+        // console.log(that.data.userInfo)
+
+        // console.log("全局openId")
+        // console.log(app.globalData.openId)
+        this.goHome()
+      }
+    })
+
   },
   //进入主页面
   goHome: function () {
@@ -79,6 +111,9 @@ Page({
     });
   },
   getUserInfo(e) {
+    //这个方法不用了
+    console.log("new e")
+    console.log(e)
     if (e.detail.errMsg === 'getUserInfo:ok') {
       // console.log('获取用户信息成功')
       wx.showLoading({

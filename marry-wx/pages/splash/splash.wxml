@@ -10,7 +10,9 @@
 				<image class="wave" src="{{wave}}" mode="aspectFill"></image>
 				<image class="wave wave-bg" src="{{wave}}" mode="aspectFill"></image>
 			</view>
-			<button class="confirm-btn" open-type='getUserInfo' bindgetuserinfo='getUserInfo'>进入</button>
+			<!-- <button class="confirm-btn" open-type='getUserInfo' bindgetuserinfo='getUserInfo'>进入</button> -->
+			<button wx:if="{{canIUseGetUserProfile}}" bindtap="btnEnter" class="confirm-btn"> 进入 </button>
+      <button wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="confirm-btn"> 进入 </button>
 		</view>
 	</block>
 </view>

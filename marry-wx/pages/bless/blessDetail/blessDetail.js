@@ -17,14 +17,14 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-    wx.getUserInfo({
-        success: function (res) {
-          that.setData({
-            userInfo: res.userInfo
-          })
-          //console.log(res.userInfo)
-        }
-      }),
+    // wx.getUserInfo({
+    //     success: function (res) {
+    //       that.setData({
+    //         userInfo: res.userInfo
+    //       })
+    //       //console.log(res.userInfo)
+    //     }
+    //   }),
       that.getPraiseList()
   },
 

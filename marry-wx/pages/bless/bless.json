@@ -2,12 +2,6 @@
   "navigationBarTitleText": "好友祝福",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "wux-white-space": "../../dist/white-space/index",
-    "wux-wing-blank": "../../dist/wing-blank/index",
-    "wux-icon": "../../dist/icon/index",
-    "wux-grids": "../../dist/grids/index",
-    "wux-grid": "../../dist/grid/index",
-    "wux-button": "../../dist/button/index",
     "wux-dialog": "../../dist/dialog/index",
     "wux-toast": "../../dist/toast/index",
     "wux-tabs": "../../dist/tabs/index",

@@ -16,6 +16,7 @@ Page({
     extraClasses: '',
   },
   handleTouchEnd: function (e) {
+    //移动结束后松手触发的事件
     var that = this;
     // console.info(e)
     if (that.data.lock == 1) {
@@ -43,10 +44,10 @@ Page({
       } else {
         var dpr = 750 / wx.getSystemInfoSync().windowWidth;
 
-        //弹的最高top
+        //弹的最高top,自己设置的最高点,不协调的话可以改变一下最高点的高度
         var yTop = wx.getSystemInfoSync().windowHeight * dpr * 0.9;
 
-        //计算斜率
+        //计算斜率,简单的y=ax+b,一元两次方程
         var a = (that.data.margin_bottom - that.data.margin_bottom_old) / (that.data.margin_left - that.data.margin_left_old)
         var b = that.data.margin_bottom_old - (a * that.data.margin_left_old)
         // console.info(a) //宽
@@ -72,6 +73,7 @@ Page({
               lock: 0,
             })
           } else if (xTemp < 0) {
+            //如果弹射到了屏幕左侧,超过屏幕左侧就回到原点
             that.setData({
               extraClasses: 'box-transition',
               margin_left: 0,
@@ -79,6 +81,7 @@ Page({
               lock: 0,
             })
           } else {
+            //如果弹射到了屏幕右侧,超过屏幕右侧就回到原点
             that.setData({
               extraClasses: 'box-transition',
               margin_left: wx.getSystemInfoSync().windowWidth * dpr,
@@ -101,8 +104,12 @@ Page({
     }
   },
   handleLongPress: function (e) {
+    //长按触发
     var that = this;
+    //振动
     wx.vibrateShort();
+
+    //记录原位置,lock=1代表可以移动,heartX和heartY是像素还是rpx我忘了
     that.setData({
       lock: 1,
       heartX: e.touches[0].clientX,
@@ -110,7 +117,9 @@ Page({
     })
   },
   touchS: function (e) {
+    //拖动开始触发的事件
     var that = this;
+    //再次记录原始位置,也可以不记录,我也忘了一开始为什么要这么写了
     if (that.data.lock == 1) {
       that.setData({
         heartX: e.touches[0].clientX,
@@ -119,8 +128,14 @@ Page({
     }
   },
   touchM: function (e) {
+    //移动过程中触发的事件
     var that = this;
+    //drp是750和屏幕宽度的比值,用来换算rpx的
     var dpr = 750 / wx.getSystemInfoSync().windowWidth;
+    //extraClasses是css样式,如果是''代表无样式,如果是'box-transition',表示移动速度*0.5,可以在同目录的css样式中找到
+    //改变margin的目的是因为拖动这颗心的时候,这颗心要和手指一起移动
+    //heartX_temp和heartY_temp表示随时记录移动位置,随时有可能成为最终松手的位置
+    //所有的记录,都是用的像素记录,所有的样式都是用的rpx,就比如margin_left用的是rpx展示,heartX_temp用的是像素记录
     if (that.data.lock == 1) {
       that.setData({
         extraClasses: '',

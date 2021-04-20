@@ -48,7 +48,8 @@
             c.gift_name,
             c.gift_url,
             c.id,
-            c.gift_gold
+            c.gift_gold,
+            c.create_time
         FROM
             (
             SELECT

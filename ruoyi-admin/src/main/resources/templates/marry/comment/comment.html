@@ -37,22 +37,22 @@
             </form>
         </div>
 
-<!--        <div class="btn-group-sm" id="toolbar" role="group">-->
-<!--            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="marry:comment:add">-->
-<!--                <i class="fa fa-plus"></i> 添加-->
-<!--            </a>-->
-<!--            <a class="btn btn-primary single disabled" onclick="$.operate.edit()"-->
-<!--               shiro:hasPermission="marry:comment:edit">-->
-<!--                <i class="fa fa-edit"></i> 修改-->
-<!--            </a>-->
-<!--            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()"-->
-<!--               shiro:hasPermission="marry:comment:remove">-->
-<!--                <i class="fa fa-remove"></i> 删除-->
-<!--            </a>-->
-<!--            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="marry:comment:export">-->
-<!--                <i class="fa fa-download"></i> 导出-->
-<!--            </a>-->
-<!--        </div>-->
+        <!--        <div class="btn-group-sm" id="toolbar" role="group">-->
+        <!--            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="marry:comment:add">-->
+        <!--                <i class="fa fa-plus"></i> 添加-->
+        <!--            </a>-->
+        <!--            <a class="btn btn-primary single disabled" onclick="$.operate.edit()"-->
+        <!--               shiro:hasPermission="marry:comment:edit">-->
+        <!--                <i class="fa fa-edit"></i> 修改-->
+        <!--            </a>-->
+        <!--            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()"-->
+        <!--               shiro:hasPermission="marry:comment:remove">-->
+        <!--                <i class="fa fa-remove"></i> 删除-->
+        <!--            </a>-->
+        <!--            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="marry:comment:export">-->
+        <!--                <i class="fa fa-download"></i> 导出-->
+        <!--            </a>-->
+        <!--        </div>-->
         <div class="col-sm-12 select-table table-striped">
             <table id="bootstrap-table"></table>
         </div>
@@ -103,7 +103,11 @@
                     field: 'nickImage',
                     title: '头像',
                     formatter: function (value, row, index) {
-                        return $.table.imageView(value);
+                        if (value == 'avatar_visitor.png') {
+                            return "<img class=\"img-circle img-xs\" data-height=\"132px\" data-width=\"132px\" data-target=\"self\" src=\"../img/avatar_visitor.png\"  >";
+                        } else {
+                            return $.table.imageView(value);
+                        }
                     }
                 },
                 {

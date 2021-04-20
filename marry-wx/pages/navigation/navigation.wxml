@@ -35,6 +35,7 @@
 	<!-- <view class="bless_img">
     <image src="/image/heart-animation.gif" bindtap='imgOnClick' />
   </view> -->
+	<!-- 客服没啥用,不要了 -->
 	<!-- <wux-white-space body-style="height: 200px" />
   <wux-cell title="调戏客服" is-link open-type="contact" bind:contact="onContact"></wux-cell> -->
 </view>

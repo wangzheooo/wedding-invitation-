@@ -82,6 +82,7 @@ Page({
     console.log('onContact', e)
   },
   imgOnClick: function () {
+    //没用了
     var that = this;
     var i = util.getRandom(0, 4)
     // console.log(that.data.message[i])
@@ -90,13 +91,16 @@ Page({
     });
   },
   onChange(e) {
+    //点击图片触发的事件
     var that = this;
     var goldStatus = app.globalData.marryInfo.goldStatus;
     if (goldStatus == 1) {
       that.setData({
         visible: false,
       })
+      //写0-9的原因是,message只写了10句话
       var i = util.getRandom(0, 9);
+      //写i==4的原因是,第五句话是给金币的
       if (i == 4) {
         if (app.globalData.openId != null && app.globalData.openId != "") {
           wx.showModal({

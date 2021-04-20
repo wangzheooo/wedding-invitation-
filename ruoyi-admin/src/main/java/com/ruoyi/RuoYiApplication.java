@@ -24,7 +24,7 @@ public class RuoYiApplication {
         System.out.println("后台启动成功");
     }
 
-    //此处往下的代码,,,是http自动跳https==========================================================
+    //此处往下的代码,是http自动跳https==========================================================
     @Value("${http.port}")
     Integer httpPort;
 

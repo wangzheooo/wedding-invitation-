@@ -38,7 +38,7 @@
     <div class="col-sm-5">
         <h2>框架</h2>
         <ol>
-            <li>用了若依的后台框架,配置了/wechat/**接口和小程序对接</li>
+            <li>用了若依的后台框架,开放了/party/wechat/**接口和小程序对接</li>
             <li>小程序是根据pengMaster大神的邀请函改的</li>
             <li>这个项目最近会一直更新,由于在上班,更新的比较慢</li>
         </ol>
@@ -90,7 +90,7 @@
                         <li>服务器:阿里云1核2G,1M带宽,windows server 2008 R2</li>
                         <li>数据库:腾讯云TDSQL-C数据库,兼容mysql5.7,1核1G</li>
                         <li>存储:阿里云oss</li>
-                        <li>cdn加速:百度云加速</li>
+                        <li>cdn加速:百度云加速(百度云加速不支持ddns动态域名解析,运营商dns切换大概要等2个小时最少)</li>
                     </ol>
                 </div>
 
@@ -100,7 +100,7 @@
                 <div class="ibox-content">
                     <ol>
                         <li>linux系统可以增加虚拟内存,把数据库装在服务器上</li>
-                        <li>后台有关静态图片,建议都整到oss里或者放到QQ空间,然后用链接引用,这样图片加载速度会变快,七牛云的存储比阿里云的oss便宜,可以尝试尝试</li>
+                        <li>后台有关静态图片,建议都整到oss里或者放到QQ空间或者git等等,然后用链接引用,这样图片加载速度会变快,七牛云的存储比阿里云的oss便宜</li>
                     </ol>
                 </div>
             </div>
@@ -114,6 +114,24 @@
                 <div class="ibox-content no-padding">
                     <div class="panel-body">
                         <div class="panel-group" id="version">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#version" href="#v101">v1.0.1</a><code
+                                            class="pull-right">2021.04.20</code>
+                                    </h5>
+                                </div>
+                                <div id="v103" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        <ol>
+                                            <li>后台访客头像不显示问题</li>
+                                            <li>换了域名</li>
+                                            <li>对于修改的地方都加了注释,以前写的东西,现在都看不懂逻辑了</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="panel panel-default">
                                 <div class="panel-heading">

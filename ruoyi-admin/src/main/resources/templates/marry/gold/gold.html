@@ -90,7 +90,11 @@
                     field: 'avatarUrl',
                     title: '头像',
                     formatter: function (value, row, index) {
-                        return $.table.imageView(value);
+                        if (value == 'avatar_visitor.png') {
+                            return "<img class=\"img-circle img-xs\" data-height=\"132px\" data-width=\"132px\" data-target=\"self\" src=\"../img/avatar_visitor.png\"  >";
+                        } else {
+                            return $.table.imageView(value);
+                        }
                     }
                 },
                 {

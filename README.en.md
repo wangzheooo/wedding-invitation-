@@ -32,7 +32,7 @@ mysql5.7.22
 
 2.后台 
 
-https://wellwellwell.cool/party
+http://marry.wellwellwell.cool
 
 
 #### 小程序特殊说明

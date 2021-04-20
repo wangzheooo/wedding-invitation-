@@ -30,6 +30,12 @@ mysql5.7.22
 
 ![小程序码](https://gitee.com/davidzhe/wedding-invitation-/raw/master/ruoyi-admin/src/main/resources/static/img/gh_3669ad9704ef_258.jpg)
 
+有时候小程序换了域名,访问的时候可能没有数据,等审核通过就可以了,等个2天左右吧
+
+有时候小程序没有评论,弹幕,礼物功能,说明在审核,暂时把这些功能都关闭了
+
+小程序没有音乐,因为音乐功能暂时关闭了,整天听,开发也听,就关闭了,生产环境的时候可以后台再打开
+
 2.后台 
 
 http://marry.wellwellwell.cool

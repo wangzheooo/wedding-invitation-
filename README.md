@@ -28,7 +28,7 @@ mysql5.7.22
 
 1.小程序
 
-![小程序码](https://gitee.com/davidzhe/wedding-invitation-/raw/master/ruoyi-admin/src/main/resources/static/img/gh_3669ad9704ef_258.jpg)
+ ![image](https://maliao.oss-cn-qingdao.aliyuncs.com/wangzhe/gh_3669ad9704ef_258.jpg)
 
 有时候小程序换了域名,访问的时候可能没有数据,等审核通过就可以了,等个2天左右吧
 

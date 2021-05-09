@@ -35,6 +35,9 @@ function compareVersion(v1, v2) {
   return 0
 }
 
+// 在页面中定义激励视频广告,是否显示
+let videoAd = null
+
 Page({
 
   /**
@@ -56,6 +59,7 @@ Page({
     barrageList: null,
     colors: ['#0000FF', '#00FF00', 'black', '#00FFFF', '#FF00FF', '#C0C0C0']
   },
+
   pointLeaderboard: function () {
     var that = this;
     //that.goPage("test");
@@ -263,6 +267,25 @@ Page({
     })
   },
 
+  //点击广告弹出对话框
+  adFunction: function (e) {
+    $wuxDialog().confirm({
+      resetOnClose: true,
+      closable: false,
+      content: '正常逻辑是点击导航页的gif动图,概率性获得一枚金币,自己用的时候把此处代码删除即可.开源不易,赚一点点广告费买奶粉,点击确定则打开6-30秒的广告,看完即可,非常感谢~!',
+      onConfirm(e) {
+        videoAd.show().catch(() => {
+          videoAd.load()
+            .then(() => videoAd.show())
+            .catch(err => {
+              console.log('激励视频 广告显示失败')
+              that.showToastCancel("激励视频 广告显示失败")
+            })
+        })
+      },
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -288,6 +311,32 @@ Page({
       that.setData({
         goldStatus: "",
       })
+
+      // 在页面onLoad回调事件中创建激励视频广告实例
+      if (wx.createRewardedVideoAd) {
+        videoAd = wx.createRewardedVideoAd({
+          adUnitId: 'adunit-63ab3682c74bfadc'
+        })
+        videoAd.onLoad(() => {
+          console.log('onLoad event emit')
+        })
+        videoAd.onError((err) => {
+          console.log('onError event emit', err)
+        })
+        videoAd.onClose((res) => {
+          console.log('onClose event emit', res)
+          // 用户点击了【关闭广告】按钮
+          if (res && res.isEnded) {
+            // 正常播放结束，可以下发游戏奖励
+            console.log('正常播放结束，可以下发游戏奖励', res)
+            that.saveGoldAd();
+          } else {
+            // 播放中途退出，不下发游戏奖励
+            console.log('播放中途退出，不下发游戏奖励', res)
+          }
+        })
+      }
+
     } else {
       that.setData({
         goldStatus: "none",
@@ -323,6 +372,45 @@ Page({
           isDoudong: !isDoudong
         })
       }, 1000)
+  },
+
+  saveGoldAd: function () {
+    var that = this
+    wx.request({
+      url: api.mobileIn,
+      method: "GET",
+      data: {
+        flag: 'SAVE_GOLD_AD',
+        openId: app.globalData.openId
+      },
+      dataType: "json",
+      success: res => {
+        // console.info(res.data.resultCode)
+        if (res.data.resultCode == 'success') {
+          that.showToastSuccess("获取成功")
+          
+          // 获取用户余额
+          wx.request({
+            url: api.mobileIn,
+            method: 'GET',
+            data: {
+              flag: 'GET_GOLD',
+              openId: app.globalData.openId
+            },
+            success: function (res) {
+              // wx.hideToast()
+              if (200 == res.statusCode) {
+                if ('success' == res.data.resultCode) {
+                  that.setData({
+                    gold_money: res.data.gold
+                  })
+                }
+              }
+            },
+          });
+        }
+      }
+    })
   },
 
   openBarrage() {

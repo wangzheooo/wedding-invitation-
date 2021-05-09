@@ -51,9 +51,11 @@ public class WechatController extends BaseController {
             return wechatService.geLeaderboard(request);
         } else if (flag.equals("GET_BARRAGE")) {
             return wechatService.getBarrage(request);
-        }  else if (flag.equals("GET_USER_INFO")) {
+        } else if (flag.equals("GET_USER_INFO")) {
             return wechatService.getUserInfo(request);
-        }else {
+        } else if (flag.equals("SAVE_GOLD_AD")) {
+            return wechatService.saveGoldAd(request);
+        } else {
             return "";
         }
     }

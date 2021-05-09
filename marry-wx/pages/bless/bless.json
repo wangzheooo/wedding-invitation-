@@ -6,6 +6,7 @@
     "wux-toast": "../../dist/toast/index",
     "wux-tabs": "../../dist/tabs/index",
     "wux-tab": "../../dist/tab/index",
-    "wux-badge": "../../dist/badge/index"
+    "wux-badge": "../../dist/badge/index",
+    "mp-dialog": "weui-miniprogram/dialog/dialog"
   }
 }

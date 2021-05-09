@@ -459,6 +459,30 @@ public class WechatService {
         return JsonObject.toString();
     }
 
+    //为了广告加的,看完广告加300金币
+    public String saveGoldAd(HttpServletRequest request) {
+        String openId = request.getParameter("openId");
+
+        JSONObject JsonObject = new JSONObject();
+        JsonObject.put("resultCode", "fail");
+        JsonObject.put("message", "异常");
+        if (StringUtils.isNotEmpty(openId)) {
+            TUserGold tUserGold = tUserGoldService.selectTUserGoldByOpenId(openId);
+            if (tUserGold != null) {
+                tUserGold.setGold(tUserGold.getGold() + 300);
+                tUserGoldService.updateTUserGold(tUserGold);
+            } else {
+                tUserGold = new TUserGold();
+                tUserGold.setOpenid(openId);
+                tUserGold.setGold(1);
+                tUserGoldService.insertTUserGold(tUserGold);
+            }
+            JsonObject.put("resultCode", "success");
+            JsonObject.put("message", "成功");
+        }
+        return JsonObject.toString();
+    }
+
     public String geLeaderboard(HttpServletRequest request) {
         String openId = request.getParameter("openId");
 

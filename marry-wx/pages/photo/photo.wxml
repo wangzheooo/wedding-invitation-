@@ -10,7 +10,7 @@
   </swiper>
 </view>
 
-<!-- banner广告位,就如下三行代码,自己用的时候删掉即可 -->
+<!-- banner广告位,就如下三行代码,没有js代码,自己用的时候删掉即可 -->
 <view style="position:absolute;z-index: 99;top:900rpx;width:100%;">
   <ad unit-id="adunit-dbae30666b720f06"></ad>
 </view>

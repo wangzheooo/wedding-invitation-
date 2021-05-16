@@ -8,7 +8,7 @@ Page({
     margin_left_old: 350,
     margin_bottom: 320,
     margin_left: 350,
-    lock: 0,
+    lock: 0, //0代表不能移动,1代表可以移动
     heartX_temp: 0,
     heartY_temp: 0,
     heartX: 0,
@@ -39,7 +39,7 @@ Page({
           extraClasses: '',
           margin_left: that.data.margin_left_old,
           margin_bottom: that.data.margin_bottom_old,
-          lock: 1,
+          lock: 0,
         })
       } else {
         var dpr = 750 / wx.getSystemInfoSync().windowWidth;
@@ -95,8 +95,7 @@ Page({
           that.setData({
             extraClasses: '',
             margin_left: that.data.margin_left_old,
-            margin_bottom: that.data.margin_bottom_old,
-            lock: 1,
+            margin_bottom: that.data.margin_bottom_old
           })
         }, 300)
 
@@ -108,7 +107,6 @@ Page({
     var that = this;
     //振动
     wx.vibrateShort();
-
     //记录原位置,lock=1代表可以移动,heartX和heartY是像素还是rpx我忘了
     that.setData({
       lock: 1,

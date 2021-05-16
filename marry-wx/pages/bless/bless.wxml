@@ -40,7 +40,7 @@
 		<view id="gold_footer" class="gold_footer">
 			<view class="gift_gold_seq" bindtap='pointLeaderboard'>排行榜</view>
 
-			<!-- 激励广告部分,js页面中有三处,搜索广告就能找到这三处 -->
+			<!-- 激励广告位部分,js中有三处,搜索广告两个字就能找到这三处 -->
 			<view
 				style="position:absolute;z-index: 99;width:300rpx;height:15rpx;left:30%;font-family：‘宋体’;color: #FF6688;font-weight: bold;"
 				bindtap="adFunction">快速获取300金币</view>
@@ -75,6 +75,12 @@
 	</view>
 
 	<view class="chat_view" wx:if="{{chatList.length > 0}}">
+
+		<!-- banner广告位,就如下三行代码,没有js代码,自己用的时候删掉即可 -->
+		<view class="chat_list">
+			<ad unit-id="adunit-dbae30666b720f06"></ad>
+		</view>
+
 		<view class="chat_list" wx:for="{{chatList}}" wx:key="user">
 			<view class="chat_face">
 				<image src="{{item.nickImage=='avatar_visitor.png'?'../../image/others/avatar_visitor.png':item.nickImage}}" />
@@ -91,7 +97,13 @@
 			</view>
 		</view>
 	</view>
-	<view wx:else>
+	<view class="chat_view" wx:else>
+
+		<!-- banner广告位,就如下三行代码,没有js代码,自己用的时候删掉即可 -->
+		<view class="chat_list">
+			<ad unit-id="adunit-dbae30666b720f06"></ad>
+		</view>
+
 		<view class="befirst">
 			<image src="/image/lovemail.gif" />
 		</view>

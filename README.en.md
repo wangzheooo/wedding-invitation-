@@ -32,7 +32,7 @@ mysql5.7.22
 
 1.小程序
 
- ![image](https://maliao.oss-cn-qingdao.aliyuncs.com/wangzhe/gh_3669ad9704ef_258.jpg)
+![image](https://maliao.oss-cn-qingdao.aliyuncs.com/wangzhe/gh_3669ad9704ef_258.jpg)
 
 有时候小程序换了域名,访问的时候可能没有数据,等审核通过就可以了,等个2天左右吧
 
@@ -40,7 +40,7 @@ mysql5.7.22
 
 小程序没有音乐,因为音乐功能暂时关闭了,整天听,开发也听,就关闭了,生产环境的时候可以后台再打开
 
-2.后台 
+2.后台
 
 http://marry.wellwellwell.cool
 
@@ -73,3 +73,7 @@ http://marry.wellwellwell.cool
 1.用linux系统,然后增加4G的虚拟内存(防止真实内存资源不足,其实项目2G内存也够用)
 
 2.这样之后就把mysql装到linux里,然后项目后台的数据库地址改成127.0.0.1(之前用云数据库怕本地mysql占内存,后来用了云数据库后觉得云数据库占带宽)
+
+#### 交流群
+
+QQ群:1079120298
